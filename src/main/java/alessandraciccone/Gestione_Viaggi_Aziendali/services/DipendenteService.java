@@ -55,7 +55,7 @@ public class DipendenteService {
         return dipendenteRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
     }
 
-    public Dipendente fimdByIdAndUpdate(UUID id, DipendentePayload payload){
+    public Dipendente findByIdAndUpdate(UUID id, DipendentePayload payload){
     Dipendente found=findById(id);
     if(!found.getEmail().equals(payload.getEmail())){
         List<Dipendente> duplicati= dipendenteRepository.findByEmail(payload.getEmail());
@@ -79,4 +79,6 @@ public class DipendenteService {
         dipendenteRepository.delete(found);
         Log.info("Dipendente eliminato");
     }
+
+
 }

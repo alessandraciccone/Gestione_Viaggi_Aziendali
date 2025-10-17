@@ -2,7 +2,7 @@ package alessandraciccone.Gestione_Viaggi_Aziendali.entities;
 
 
 import jakarta.persistence.*;
-import org.hibernate.validator.constraints.UUID;
+import java.util.UUID;
 
 import java.time.LocalDate;
 
@@ -37,8 +37,7 @@ public class Viaggio {
     public Viaggio(String destinazione, LocalDate dataViaggio, StatoViaggio statoViaggio) {
     }
 
-    //public Viaggio(String destinazione, LocalDate dataViaggio, StatoViaggio statoViaggio, java.util.UUID prenotazioneID, java.util.UUID dipendenteId) {
-    //}
+
 
 
     public UUID getId() {
