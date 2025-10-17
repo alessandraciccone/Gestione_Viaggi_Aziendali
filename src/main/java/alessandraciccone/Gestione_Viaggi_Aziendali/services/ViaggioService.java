@@ -1,6 +1,8 @@
 package alessandraciccone.Gestione_Viaggi_Aziendali.services;
 
 
+import alessandraciccone.Gestione_Viaggi_Aziendali.entities.Dipendente;
+import alessandraciccone.Gestione_Viaggi_Aziendali.entities.Prenotazione;
 import alessandraciccone.Gestione_Viaggi_Aziendali.entities.Viaggio;
 import alessandraciccone.Gestione_Viaggi_Aziendali.exceptions.BadRequestException;
 import alessandraciccone.Gestione_Viaggi_Aziendali.exceptions.NotFoundException;
@@ -50,19 +52,23 @@ public class ViaggioService {
             throw new BadRequestException("Viaggio già esistente");
         }
 
+        Prenotazione prenotazione = prenotazioneRepository.findById(payload.getPrenotazioneID())
+                .orElseThrow(() -> new NotFoundException(payload.getPrenotazioneID()));
 
-        Viaggio newViaggio = new Viaggio(
-                payload.getDestinazione(),
-                payload.getDataViaggio(),
-                payload.getStatoViaggio()
+        Dipendente dipendente = dipendenteRepository.findById(payload.getDipendenteId())
+                .orElseThrow(() -> new NotFoundException(payload.getDipendenteId()));
 
-        );
+        Viaggio newViaggio = new Viaggio();
+        newViaggio.setDestinazione(payload.getDestinazione());
+        newViaggio.setDataViaggio(payload.getDataViaggio());
+        newViaggio.setStatoViaggio(payload.getStatoViaggio());
+        newViaggio.setPrenotazione(prenotazione);
+        newViaggio.setDipendente(dipendente);
 
         Viaggio savedViaggio = viaggioRepository.save(newViaggio);
         log.info(String.format("Il viaggio è stato salvato! ID: %s", savedViaggio.getId()));
         return savedViaggio;
     }
-    //cerco viaggio x id
 
     public Viaggio findById(UUID id) {
         return viaggioRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
