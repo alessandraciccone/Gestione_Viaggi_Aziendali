@@ -8,6 +8,7 @@ import java.util.UUID;
 @Entity
 public class Dipendente {
 
+
     @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
     UUID id;
