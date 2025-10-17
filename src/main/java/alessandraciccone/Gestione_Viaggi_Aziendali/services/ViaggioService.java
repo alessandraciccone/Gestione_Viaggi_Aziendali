@@ -2,6 +2,8 @@ package alessandraciccone.Gestione_Viaggi_Aziendali.services;
 
 
 import alessandraciccone.Gestione_Viaggi_Aziendali.entities.Viaggio;
+import alessandraciccone.Gestione_Viaggi_Aziendali.exceptions.BadRequestException;
+import alessandraciccone.Gestione_Viaggi_Aziendali.exceptions.NotFoundException;
 import alessandraciccone.Gestione_Viaggi_Aziendali.payloads.ViaggioPayload;
 import alessandraciccone.Gestione_Viaggi_Aziendali.repositories.DipendenteRepository;
 import alessandraciccone.Gestione_Viaggi_Aziendali.repositories.PrenotazioneRepository;
@@ -45,7 +47,7 @@ public class ViaggioService {
     public Viaggio save(ViaggioPayload payload) {
         List<Viaggio> esistenti = viaggioRepository.findByPrenotazione_Id(payload.getPrenotazioneID());
         if (!esistenti.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Viaggio già esistente!");
+            throw new BadRequestException("Viaggio già esistente");
         }
 
 
@@ -62,9 +64,9 @@ public class ViaggioService {
     }
     //cerco viaggio x id
 
-    public Viaggio findById(UUID id){
-        return viaggioRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Viaggio non trovato!"));}
-
+    public Viaggio findById(UUID id) {
+        return viaggioRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
 
     // trova e modifca
 
@@ -74,7 +76,7 @@ public class ViaggioService {
         if (!found.getDataViaggio().equals(payload.getDataViaggio())) {
             List<Viaggio> duplicati = viaggioRepository.findByDataViaggio(payload.getDataViaggio());
             if (!duplicati.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Viaggio già conseguito!");
+                throw new BadRequestException("Viaggio già conseguito!");
             }
         }
 

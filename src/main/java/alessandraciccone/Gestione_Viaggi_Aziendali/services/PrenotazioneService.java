@@ -2,6 +2,8 @@ package alessandraciccone.Gestione_Viaggi_Aziendali.services;
 
 
 import alessandraciccone.Gestione_Viaggi_Aziendali.entities.Prenotazione;
+import alessandraciccone.Gestione_Viaggi_Aziendali.exceptions.BadRequestException;
+import alessandraciccone.Gestione_Viaggi_Aziendali.exceptions.NotFoundException;
 import alessandraciccone.Gestione_Viaggi_Aziendali.payloads.PrenotazionePayload;
 import alessandraciccone.Gestione_Viaggi_Aziendali.repositories.PrenotazioneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ public class PrenotazioneService {
     public Prenotazione save(PrenotazionePayload payload) {
         List<Prenotazione> duplicati = prenotazioneRepository.findByDataRichiesta(payload.getDataRichiesta());
         if (!duplicati.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "prenotazione già registrata per questa data");
+            throw new BadRequestException("prenotazione già registrata");
 
         }
 
@@ -50,7 +52,7 @@ public class PrenotazioneService {
 
 
     public Prenotazione findById(UUID id){
-        return prenotazioneRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Prenotazione non trovata"));
+        return prenotazioneRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
     }
 
     //trova e mopdifica
@@ -60,7 +62,7 @@ public class PrenotazioneService {
         if(!found.getDataRichiesta().equals(payload.getDataRichiesta())){
             List<Prenotazione> duplicati= prenotazioneRepository.findByDataRichiesta(payload.getDataRichiesta());
           if(!duplicati.isEmpty()){
-              throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"Questa prenotazione già esiste!");
+              throw  new BadRequestException("prenotazione già esistente!");
           }
         }
 

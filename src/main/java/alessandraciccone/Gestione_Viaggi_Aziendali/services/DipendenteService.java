@@ -2,6 +2,8 @@ package alessandraciccone.Gestione_Viaggi_Aziendali.services;
 
 
 import alessandraciccone.Gestione_Viaggi_Aziendali.entities.Dipendente;
+import alessandraciccone.Gestione_Viaggi_Aziendali.exceptions.BadRequestException;
+import alessandraciccone.Gestione_Viaggi_Aziendali.exceptions.NotFoundException;
 import alessandraciccone.Gestione_Viaggi_Aziendali.payloads.DipendentePayload;
 import alessandraciccone.Gestione_Viaggi_Aziendali.repositories.DipendenteRepository;
 import org.apache.catalina.filters.ExpiresFilter;
@@ -32,7 +34,7 @@ public class DipendenteService {
         List<Dipendente> duplicati= dipendenteRepository.findByEmail(payload.getEmail());
 
         if(!duplicati.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dipendente già registrato");
+            throw new BadRequestException("Dipendente già registrato con questa email");
 
         }
 
@@ -50,7 +52,7 @@ public class DipendenteService {
 
     //cerca x id
     public Dipendente findById(UUID id){
-        return dipendenteRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Dipendente non trovato"));
+        return dipendenteRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
     }
 
     public Dipendente fimdByIdAndUpdate(UUID id, DipendentePayload payload){
@@ -58,7 +60,7 @@ public class DipendenteService {
     if(!found.getEmail().equals(payload.getEmail())){
         List<Dipendente> duplicati= dipendenteRepository.findByEmail(payload.getEmail());
         if(!duplicati.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Email già in uso!!");
+            throw new BadRequestException("Email già in uso");
         }
     }
 

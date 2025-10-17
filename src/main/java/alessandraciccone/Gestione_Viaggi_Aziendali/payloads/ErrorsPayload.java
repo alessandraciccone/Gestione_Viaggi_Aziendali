@@ -4,19 +4,19 @@ import java.time.LocalDate;
 
 public class ErrorsPayload {
 
-    private String messageg;
+    private String message;
     private LocalDate timestamp;
 
-    public String getMessageg() {
-        return messageg;
+    public String getMessage() {
+        return message;
     }
 
     public LocalDate getTimestamp() {
         return timestamp;
     }
 
-    public ErrorsPayload(String messageg, LocalDate timestamp) {
-        this.messageg = messageg;
+    public ErrorsPayload(String message, LocalDate timestamp) {
+        this.message = message;
         this.timestamp = timestamp;
 
 
