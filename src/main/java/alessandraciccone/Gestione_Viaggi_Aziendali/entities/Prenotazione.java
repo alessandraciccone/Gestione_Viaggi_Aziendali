@@ -1,17 +1,14 @@
 package alessandraciccone.Gestione_Viaggi_Aziendali.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import org.springframework.cglib.core.Local;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-public class Premnotazione {
+public class Prenotazione {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,10 +17,14 @@ public class Premnotazione {
     private LocalDate dataRichiesta;
     private String preferenza;
 
+    @OneToOne(mappedBy = "prenotazione")
+    private Viaggio viaggio;
 
-    public Premnotazione( LocalDate dataRichiesta, String preferenza) {
+    public Prenotazione(){};
+    public Prenotazione( LocalDate dataRichiesta, String preferenza, Viaggio viaggio)  {
         this.dataRichiesta = dataRichiesta;
         this.preferenza = preferenza;
+        this.viaggio= viaggio;
     }
 
 
@@ -48,12 +49,21 @@ public class Premnotazione {
         this.preferenza = preferenza;
     }
 
+    public Viaggio getViaggio() {
+        return viaggio;
+    }
+
+    public void setViaggio(Viaggio viaggio) {
+        this.viaggio = viaggio;
+    }
+
     @Override
     public String toString() {
-        return "Premnotazione{" +
+        return "Prenotazione{" +
                 "id=" + id +
                 ", dataRichiesta=" + dataRichiesta +
                 ", preferenza='" + preferenza + '\'' +
+                ", viaggio=" + viaggio +
                 '}';
     }
 }

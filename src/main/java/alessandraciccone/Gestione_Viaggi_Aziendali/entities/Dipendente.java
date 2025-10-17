@@ -18,6 +18,7 @@ public class Dipendente {
   @OneToOne
     private Viaggio viaggio;
 
+
   public Dipendente(){};
 
     public Dipendente( String nome, String cognome, String email, Viaggio viaggio) {

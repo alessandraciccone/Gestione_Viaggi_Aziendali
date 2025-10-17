@@ -19,16 +19,19 @@ public class Viaggio {
     private StatoViaggio statoViaggio;
 
     @OneToOne
-    private Premnotazione premnotazione;
+    private Prenotazione prenotazione;
+    @OneToOne(mappedBy = "viaggio")
+    private Dipendente dipendente;
 
   public Viaggio(){};
 
-    public Viaggio( String destinazione, LocalDate dataViaggio, StatoViaggio statoViaggio, Premnotazione premnotazione) {
+    public Viaggio( String destinazione, LocalDate dataViaggio, StatoViaggio statoViaggio, Prenotazione prenotazione, Dipendente dipendente) {
 
         this.destinazione = destinazione;
         this.dataViaggio = dataViaggio;
         this.statoViaggio = statoViaggio;
-        this.premnotazione = premnotazione;
+        this.prenotazione = prenotazione;
+        this.dipendente=dipendente;
     }
 
     public UUID getId() {
@@ -60,12 +63,21 @@ public class Viaggio {
         this.statoViaggio = statoViaggio;
     }
 
-    public Premnotazione getPremnotazione() {
-        return premnotazione;
+    public Prenotazione getPrenotazione() {
+        return prenotazione;
     }
 
-    public void setPremnotazione(Premnotazione premnotazione) {
-        this.premnotazione = premnotazione;
+    public void setPrenotazione(Prenotazione prenotazione) {
+        this.prenotazione = prenotazione;
+    }
+
+
+    public Dipendente getDipendente() {
+        return dipendente;
+    }
+
+    public void setDipendente(Dipendente dipendente) {
+        this.dipendente = dipendente;
     }
 
     @Override
@@ -75,7 +87,8 @@ public class Viaggio {
                 ", destinazione='" + destinazione + '\'' +
                 ", dataViaggio=" + dataViaggio +
                 ", statoViaggio=" + statoViaggio +
-                ", premnotazione=" + premnotazione +
+                ", prenotazione=" + prenotazione +
+                ", dipendente=" + dipendente +
                 '}';
     }
 }
