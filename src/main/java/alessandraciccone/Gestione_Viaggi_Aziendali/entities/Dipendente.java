@@ -22,12 +22,13 @@ public class Dipendente {
 
   public Dipendente(){};
 
-    public Dipendente( String nome, String cognome, String email, Viaggio viaggio) {
+    public Dipendente( String nome, String cognome, String email) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
-        this.viaggio = viaggio;
+
     }
+
 
     public UUID getId() {
         return id;
@@ -59,13 +60,6 @@ public class Dipendente {
         this.email = email;
     }
 
-    public Viaggio getViaggio() {
-        return viaggio;
-    }
-
-    public void setViaggio(Viaggio viaggio) {
-        this.viaggio = viaggio;
-    }
 
     @Override
     public String toString() {
@@ -74,7 +68,6 @@ public class Dipendente {
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
                 ", email='" + email + '\'' +
-                ", viaggio=" + viaggio +
                 '}';
     }
 }

@@ -8,7 +8,7 @@ public class DipendentePayload {
     private String nome;
     private String cognome;
     private String email;
-    private UUID viaggioId;
+
 
     public UUID getId() {
         return id;
@@ -26,7 +26,5 @@ public class DipendentePayload {
         return email;
     }
 
-    public UUID getViaggioId() {
-        return viaggioId;
-    }
+
 }

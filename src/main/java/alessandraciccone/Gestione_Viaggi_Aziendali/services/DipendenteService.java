@@ -41,8 +41,8 @@ public class DipendenteService {
         Dipendente nuovo= new Dipendente(
                 payload.getNome(),
                 payload.getCognome(),
-                payload.getEmail(),
-                null
+                payload.getEmail()
+
         );
 
         Dipendente salvato= dipendenteRepository.save(nuovo);
