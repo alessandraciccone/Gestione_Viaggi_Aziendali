@@ -25,7 +25,7 @@ public class Viaggio {
 
   public Viaggio(){};
 
-    public Viaggio( String destinazione, LocalDate dataViaggio, StatoViaggio statoViaggio, Prenotazione prenotazione, Dipendente dipendente) {
+   public Viaggio( String destinazione, LocalDate dataViaggio, StatoViaggio statoViaggio, Prenotazione prenotazione, Dipendente dipendente) {
 
         this.destinazione = destinazione;
         this.dataViaggio = dataViaggio;
@@ -33,6 +33,13 @@ public class Viaggio {
         this.prenotazione = prenotazione;
         this.dipendente=dipendente;
     }
+
+    public Viaggio(String destinazione, LocalDate dataViaggio, StatoViaggio statoViaggio) {
+    }
+
+    //public Viaggio(String destinazione, LocalDate dataViaggio, StatoViaggio statoViaggio, java.util.UUID prenotazioneID, java.util.UUID dipendenteId) {
+    //}
+
 
     public UUID getId() {
         return id;
